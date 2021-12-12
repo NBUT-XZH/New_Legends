@@ -71,12 +71,12 @@ void vision_read_data(uint8_t *ReadFormUart)
     else
       if_identify_target = FALSE; // 未识别到装甲板
 
-
 				
 		//帧计算
 		Vision_Time_Test[NOW] = xTaskGetTickCount();
 		Vision_Ping = Vision_Time_Test[NOW] - Vision_Time_Test[LAST];//计算时间间隔
 		Vision_Time_Test[LAST] = Vision_Time_Test[NOW];
+    
 		}
 	}
 
@@ -122,10 +122,12 @@ void vision_send_data(uint8_t CmdID)
 }
 
 
+
 void vision_error_angle(float *yaw_angle_error, float *pitch_angle_error)
 {
-	*yaw_angle_error = VisionRecvData.yaw_angle / PI;
-	*pitch_angle_error = VisionRecvData.pitch_angle / PI;
+	*yaw_angle_error = VisionRecvData.yaw_angle / 180 *PI;
+	*pitch_angle_error = VisionRecvData.pitch_angle /180 * PI;
+  
 	
 	if(VisionRecvData.yaw_angle == 0)
 	{
@@ -164,6 +166,7 @@ bool_t vision_if_armor(void)
 /**
   * @brief  换装甲标志位手动置0(false)
   * @param  void
+  * 
   * @retval void
   * @attention  记得要清零,在哪清零自己选,调用这个函数就行
   */
