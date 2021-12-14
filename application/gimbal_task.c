@@ -272,7 +272,7 @@ void gimbal_task(void const *pvParameters)
             }
             else
             {
-                //CAN_cmd_gimbal(0, 0, 0, 0);  //pitch轴有问题,未修复
+//                CAN_cmd_gimbal(0, 0, 0, 0);  //pitch轴有问题,未修复
                 CAN_cmd_gimbal(yaw_can_set_current, pitch_can_set_current, 0, 0);
             }
         }
@@ -782,19 +782,20 @@ static void gimbal_absolute_angle_limit(gimbal_motor_t *gimbal_motor, fp32 add)
 {
     static fp32 bias_angle;
     static fp32 angle_set;
+	  static fp32 angle;
     if (gimbal_motor == NULL)
     {
         return;
     }
     //当前控制误差角度
-    bias_angle = rad_format(gimbal_motor->absolute_angle_set - gimbal_motor->absolute_angle);
+    //bias_angle = rad_format(gimbal_motor->absolute_angle_set - gimbal_motor->absolute_angle);
     //云台相对角度+ 误差角度 + 新增角度 如果大于 最大机械角度
     if (gimbal_motor->relative_angle + bias_angle + add > gimbal_motor->max_relative_angle)
     {
         //如果是往最大机械角度控制方向
         if (add > 0.0f)
         {
-            //计算出一个最大的添加角度，
+            //计算出一个最大的添加角度，   
             add = gimbal_motor->max_relative_angle - gimbal_motor->relative_angle - bias_angle;
         }
     }
@@ -805,9 +806,24 @@ static void gimbal_absolute_angle_limit(gimbal_motor_t *gimbal_motor, fp32 add)
             add = gimbal_motor->min_relative_angle - gimbal_motor->relative_angle - bias_angle;
         }
     }
-    angle_set = gimbal_motor->absolute_angle_set;
-    gimbal_motor->absolute_angle_set = rad_format(angle_set + add);
-
+		angle_set = gimbal_motor->absolute_angle_set;
+		angle = gimbal_motor->absolute_angle;
+    if(angle+add==angle_set)
+    {
+        gimbal_motor->absolute_angle_set=rad_format(angle_set);
+    }
+		else if(angle + add +0.4f<angle_set)
+		{
+			  gimbal_motor->absolute_angle_set=rad_format(angle+add);
+		}
+		else if(angle+add-0.4f>angle_set)
+    {
+		    gimbal_motor->absolute_angle_set=rad_format(angle+add);
+		}
+		else
+		{
+     gimbal_motor->absolute_angle_set = rad_format(angle_set + add);
+    }
     //是否超过最大 最小值
     if (gimbal_motor->absolute_angle_set > gimbal_motor->max_absolute_angle)
     {
