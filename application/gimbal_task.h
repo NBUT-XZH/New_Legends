@@ -55,7 +55,7 @@
 //yaw 角度环 角度由陀螺仪解算 PID参数以及 PID最大输出，积分输出
 #define YAW_GYRO_ABSOLUTE_PID_KP        5.0f  //26
 #define YAW_GYRO_ABSOLUTE_PID_KI        0.0f
-#define YAW_GYRO_ABSOLUTE_PID_KD        15.0f
+#define YAW_GYRO_ABSOLUTE_PID_KD        20.0f
 #define YAW_GYRO_ABSOLUTE_PID_MAX_OUT   4.0f
 #define YAW_GYRO_ABSOLUTE_PID_MAX_IOUT  0.0f
 
@@ -168,7 +168,7 @@
 #define MIN_ABSOULATE_YAW     -PI
 #define MAX_ABSOULATE_YAW     PI    
 
-#define MIN_ABSOULATE_PITCH      -0.4f
+#define MIN_ABSOULATE_PITCH      -0.6f
 #define MAX_ABSOULATE_PITCH       0.5f
 
 #define GIMBAL_ACCEL_YAW_NUM 0.002f

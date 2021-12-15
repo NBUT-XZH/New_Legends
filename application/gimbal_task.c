@@ -149,10 +149,16 @@ static void gimbal_motor_raw_angle_control(gimbal_motor_t *gimbal_motor);
 
 /**
   * @brief          在GIMBAL_MOTOR_GYRO模式，限制角度设定,防止超过最大
-  * @param[out]     gimbal_motor:yaw电机或者pitch电机
+  * @param[out]     gimbal_motor:yaw电机
   * @retval         none
   */
-static void gimbal_absolute_angle_limit(gimbal_motor_t *gimbal_motor, fp32 add);
+static void gimbal_absolute_angle_limit_yaw(gimbal_motor_t *gimbal_motor, fp32 add);
+/**
+  * @brief          在GIMBAL_MOTOR_GYRO模式，限制角度设定,防止超过最大
+  * @param[out]     gimbal_motor:pitch电机
+  * @retval         none
+  */
+static void gimbal_absolute_angle_limit_pitch(gimbal_motor_t *gimbal_motor, fp32 add);
 
 /**
   * @brief          在GIMBAL_MOTOR_ENCONDE模式，限制角度设定,防止超过最大
@@ -747,7 +753,7 @@ static void gimbal_set_control(gimbal_control_t *set_control)
     else if (set_control->gimbal_yaw_motor.gimbal_motor_mode == GIMBAL_MOTOR_GYRO)
     {
         //gyro模式下，陀螺仪角度控制
-        gimbal_absolute_angle_limit(&set_control->gimbal_yaw_motor, add_yaw_angle);
+        gimbal_absolute_angle_limit_yaw(&set_control->gimbal_yaw_motor, add_yaw_angle);
     }
     else if (set_control->gimbal_yaw_motor.gimbal_motor_mode == GIMBAL_MOTOR_ENCONDE)
     {
@@ -764,7 +770,7 @@ static void gimbal_set_control(gimbal_control_t *set_control)
     else if (set_control->gimbal_pitch_motor.gimbal_motor_mode == GIMBAL_MOTOR_GYRO)
     {
         //gyro模式下，陀螺仪角度控制
-        gimbal_absolute_angle_limit(&set_control->gimbal_pitch_motor, add_pitch_angle);
+        gimbal_absolute_angle_limit_pitch(&set_control->gimbal_pitch_motor, add_pitch_angle);
     }
     else if (set_control->gimbal_pitch_motor.gimbal_motor_mode == GIMBAL_MOTOR_ENCONDE)
     {
@@ -775,10 +781,84 @@ static void gimbal_set_control(gimbal_control_t *set_control)
 
 /**
   * @brief          云台控制模式:GIMBAL_MOTOR_GYRO，使用陀螺仪计算的欧拉角进行控制
-  * @param[out]     gimbal_motor:yaw电机或者pitch电机
+  * @param[out]     gimbal_motor:yaw电机
   * @retval         none
   */
-static void gimbal_absolute_angle_limit(gimbal_motor_t *gimbal_motor, fp32 add)
+static void gimbal_absolute_angle_limit_yaw(gimbal_motor_t *gimbal_motor, fp32 add)
+{
+    static fp32 bias_angle;
+    static fp32 angle_set;
+	  static fp32 angle;
+    if (gimbal_motor == NULL)
+    {
+        return;
+    }
+    //当前控制误差角度
+    bias_angle = rad_format(gimbal_motor->absolute_angle_set - gimbal_motor->absolute_angle);
+    //云台相对角度+ 误差角度 + 新增角度 如果大于 最大机械角度
+    if (gimbal_motor->relative_angle + bias_angle + add > gimbal_motor->max_relative_angle)
+    {
+        //如果是往最大机械角度控制方向
+        if (add > 0.0f)
+        {
+            //计算出一个最大的添加角度，   
+            add = gimbal_motor->max_relative_angle - gimbal_motor->relative_angle - bias_angle;
+        }
+    }
+    else if (gimbal_motor->relative_angle + bias_angle + add < gimbal_motor->min_relative_angle)
+    {
+        if (add < 0.0f)
+        {
+            add = gimbal_motor->min_relative_angle - gimbal_motor->relative_angle - bias_angle;
+        }
+    }
+	angle_set = gimbal_motor->absolute_angle_set;
+	angle = gimbal_motor->absolute_angle;
+    //当在自瞄模式下且识别到目标,云台控制权交给mini pc
+    if (vision_if_find_target() == TRUE)
+    {
+			  if(add>0.03f||add<-0.04f)
+				{   
+						if(angle+add==angle_set)
+						{
+								gimbal_motor->absolute_angle_set=rad_format(angle_set);
+						}
+						else if(angle + add +0.4f<angle_set)
+						{
+								gimbal_motor->absolute_angle_set=rad_format(angle+add);
+						}
+						else if(angle+add-0.6f>angle_set)
+						{
+								gimbal_motor->absolute_angle_set=rad_format(angle+add);
+						}
+						else
+						{
+								gimbal_motor->absolute_angle_set = rad_format(angle_set + add);
+						}
+			  }
+    }
+    else
+    {
+        gimbal_motor->absolute_angle_set = rad_format(angle_set + add);
+    }
+    //是否超过最大 最小值
+    if (gimbal_motor->absolute_angle_set > gimbal_motor->max_absolute_angle)
+    {
+        gimbal_motor->absolute_angle_set = gimbal_motor->max_absolute_angle;
+    }
+    else if (gimbal_motor->absolute_angle_set < gimbal_motor->min_absolute_angle)
+    {
+        gimbal_motor->absolute_angle_set = gimbal_motor->min_absolute_angle;
+    }
+
+
+}
+/**
+  * @brief          云台控制模式:GIMBAL_MOTOR_GYRO，使用陀螺仪计算的欧拉角进行控制
+  * @param[out]     gimbal_motor:pitch电机
+  * @retval         none
+  */
+static void gimbal_absolute_angle_limit_pitch(gimbal_motor_t *gimbal_motor, fp32 add)
 {
     static fp32 bias_angle;
     static fp32 angle_set;
@@ -806,23 +886,34 @@ static void gimbal_absolute_angle_limit(gimbal_motor_t *gimbal_motor, fp32 add)
             add = gimbal_motor->min_relative_angle - gimbal_motor->relative_angle - bias_angle;
         }
     }
-		angle_set = gimbal_motor->absolute_angle_set;
-		angle = gimbal_motor->absolute_angle;
-    if(angle+add==angle_set)
+	angle_set = gimbal_motor->absolute_angle_set;
+	angle = gimbal_motor->absolute_angle;
+    //当在自瞄模式下且识别到目标,云台控制权交给mini pc
+    if (vision_if_find_target() == TRUE)
     {
-        gimbal_motor->absolute_angle_set=rad_format(angle_set);
+			  if(add<-0.08f||add>-0.05f)
+				{   
+						if(angle+add==angle_set)
+						{
+								gimbal_motor->absolute_angle_set=rad_format(angle_set);
+						}
+						else if(angle + add +0.3f<angle_set)
+						{
+								gimbal_motor->absolute_angle_set=rad_format(angle+add);
+						}
+						else if(angle+add-0.6f>angle_set)
+						{
+								gimbal_motor->absolute_angle_set=rad_format(angle+add);
+						}
+						else
+						{
+								gimbal_motor->absolute_angle_set = rad_format(angle_set + add);
+						}
+			  }
     }
-		else if(angle + add +0.4f<angle_set)
-		{
-			  gimbal_motor->absolute_angle_set=rad_format(angle+add);
-		}
-		else if(angle+add-0.4f>angle_set)
+    else
     {
-		    gimbal_motor->absolute_angle_set=rad_format(angle+add);
-		}
-		else
-		{
-     gimbal_motor->absolute_angle_set = rad_format(angle_set + add);
+        gimbal_motor->absolute_angle_set = rad_format(angle_set + add);
     }
     //是否超过最大 最小值
     if (gimbal_motor->absolute_angle_set > gimbal_motor->max_absolute_angle)
