@@ -39,7 +39,7 @@
 #define PITCH_SPEED_PID_MAX_IOUT  10000.0f
 
 //yaw 速度环 PID参数以及 PID最大输出，积分输出
-#define YAW_SPEED_PID_KP        2000.0f  //1800
+#define YAW_SPEED_PID_KP        0.0f  //1800
 #define YAW_SPEED_PID_KI        0.0f   //20
 #define YAW_SPEED_PID_KD        0.0f
 #define YAW_SPEED_PID_MAX_OUT   30000.0f
@@ -53,7 +53,7 @@
 #define PITCH_GYRO_ABSOLUTE_PID_MAX_IOUT 0.0f
 
 //yaw 角度环 角度由陀螺仪解算 PID参数以及 PID最大输出，积分输出
-#define YAW_GYRO_ABSOLUTE_PID_KP        5.0f  //26
+#define YAW_GYRO_ABSOLUTE_PID_KP        0.0f  //26
 #define YAW_GYRO_ABSOLUTE_PID_KI        0.0f
 #define YAW_GYRO_ABSOLUTE_PID_KD        20.0f
 #define YAW_GYRO_ABSOLUTE_PID_MAX_OUT   4.0f
