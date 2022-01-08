@@ -32,14 +32,14 @@
 #include "pid.h"
 #include "remote_control.h"
 //pitch 速度环 PID参数以及 PID最大输出，积分输出
-#define PITCH_SPEED_PID_KP        2000.0f  //2900
+#define PITCH_SPEED_PID_KP        1800.0f  //2900
 #define PITCH_SPEED_PID_KI        0.0f
-#define PITCH_SPEED_PID_KD        0.4f
+#define PITCH_SPEED_PID_KD        1.0f
 #define PITCH_SPEED_PID_MAX_OUT   30000.0f
 #define PITCH_SPEED_PID_MAX_IOUT  10000.0f
 
 //yaw 速度环 PID参数以及 PID最大输出，积分输出
-#define YAW_SPEED_PID_KP        0.0f  //1800
+#define YAW_SPEED_PID_KP        1800.0f  //1800
 #define YAW_SPEED_PID_KI        0.0f   //20
 #define YAW_SPEED_PID_KD        0.0f
 #define YAW_SPEED_PID_MAX_OUT   30000.0f
@@ -123,8 +123,8 @@
 #define GIMBAL_INIT_TIME            6000
 #define GIMBAL_CALI_REDUNDANT_ANGLE 0.1f
 //云台初始化回中值的速度以及控制到的角度
-#define GIMBAL_INIT_PITCH_SPEED     0.004f
-#define GIMBAL_INIT_YAW_SPEED       0.002f  //0.005
+#define GIMBAL_INIT_PITCH_SPEED     0.005f
+#define GIMBAL_INIT_YAW_SPEED       0.003f  //0.005
 
 #define INIT_YAW_SET    0.0f
 #define INIT_PITCH_SET  0.0f
@@ -155,20 +155,20 @@
 
 
 //限幅 需要自己手动校准  
-#define YAW_OFFSET        2863  //编码器
-#define PITCH_OFFSET      1684 //编码器
+#define YAW_OFFSET        2596  //编码器
+#define PITCH_OFFSET      1727 //编码器
 
 #define MIN_YAW         -2*PI
 #define MAX_YAW         2*PI
 
-#define MIN_PITCH      -0.2f
-#define MAX_PITCH      0.5f
+#define MIN_PITCH      -0.25f
+#define MAX_PITCH      0.44f
 
 
 #define MIN_ABSOULATE_YAW     -PI
 #define MAX_ABSOULATE_YAW     PI    
 
-#define MIN_ABSOULATE_PITCH      -0.6f
+#define MIN_ABSOULATE_PITCH      -0.3f
 #define MAX_ABSOULATE_PITCH       0.5f
 
 #define GIMBAL_ACCEL_YAW_NUM 0.002f
