@@ -309,6 +309,8 @@ static void sbus_to_rc(volatile const uint8_t *sbus_buf, RC_ctrl_t *rc_ctrl)
   */
 /**
   * @brief          通过usart1发送sbus数据,在usart3_IRQHandle调用
+  * 
+  * 
   * @param[in]      sbus: sbus数据, 18字节
   * @retval         none
   */
