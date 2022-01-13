@@ -637,13 +637,13 @@ static void gimbal_absolute_angle_control(fp32 *yaw, fp32 *pitch, gimbal_control
     auto_switch = TRUE;
 
     //当在自瞄模式下且识别到目标,云台控制权交给mini pc
-    if (auto_switch == TRUE && vision_if_find_target() == TRUE)
-    {
-        vision_error_angle(yaw, pitch); //获取yaw 和 pitch的偏移量
-        vision_send_data(CmdID);       //发送指令给小电脑
-    }
-    else
-    {
+    // if (auto_switch == TRUE && vision_if_find_target() == TRUE)
+    // {
+    //     vision_error_angle(yaw, pitch); //获取yaw 和 pitch的偏移量
+    //     vision_send_data(CmdID);       //发送指令给小电脑
+    // }
+    // else
+    // {
         static int16_t yaw_channel = 0, pitch_channel = 0;
 
         rc_deadband_limit(gimbal_control_set->gimbal_rc_ctrl->rc.ch[YAW_CHANNEL], yaw_channel, RC_DEADBAND);
@@ -696,7 +696,7 @@ static void gimbal_absolute_angle_control(fp32 *yaw, fp32 *pitch, gimbal_control
 
     }
 
-    }
+    // }
 
 }
 
