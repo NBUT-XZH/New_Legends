@@ -5,7 +5,7 @@
 <h2>Tool Versions:</h2>
 IDE-Version: ��Vision V5.35.0.0
 Copyright (C) 2021 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: 1 1406232374@qq.com, 1, LIC=MPPLD-8VWJ2-450T5-GNK3C-6QJ6H-AF08H
+License Information: xu zhihao, NBUT, LIC=21E4T-R1G39-12YLE-50AEM-03QTK-6BMBB
  
 Tool Versions:
 Toolchain:       MDK-ARM Plus  Version: 5.35.0.2
@@ -17,30 +17,222 @@ Library Manager: ArmAr.exe V5.06 update 7 (build 960)
 Hex Converter:   FromElf.exe V5.06 update 7 (build 960)
 CPU DLL:         SARMCM3.DLL V5.35.0.2
 Dialog DLL:      DCM.DLL V1.17.3.0
-Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.9.0
+Target DLL:      CMSIS_AGDI.dll V1.33.0.0
 Dialog DLL:      TCM.DLL V1.53.0.0
  
 <h2>Project:</h2>
-C:\Users\14062\Documents\GitHub\New_Legends_Project\New_Legends_Project\MDK-ARM\standard_robot.uvprojx
-Project File Date:  11/06/2021
+\\Mac\Home\Documents\GitHub\New_Legends\MDK-ARM\standard_robot.uvprojx
+Project File Date:  03/11/2022
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'standard_robot'
-compiling chassis_task.c...
-..\application\gimbal_task.h(337): warning:  #1295-D: Deprecated declaration software_reset - give arg types
+assembling startup_stm32f407xx.s...
+compiling main.c...
+..\application\vision.h(142): warning:  #1295-D: Deprecated declaration vision_if_find_target - give arg types
+  bool_t vision_if_find_target();
+..\application\vision.h(146): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\application\gimbal_task.h(336): warning:  #1295-D: Deprecated declaration software_reset - give arg types
+  extern void software_reset();
+../Src/main.c(102): warning:  #9-D: nested comment is not allowed
+    /* USER CODE END 1 */
+../Src/main.c(152): warning:  #223-D: function "vision_init" declared implicitly
+      vision_init();
+../Src/main.c: 5 warnings, 0 errors
+compiling gpio.c...
+compiling freertos.c...
+..\application\gimbal_task.h(336): warning:  #1295-D: Deprecated declaration software_reset - give arg types
+  extern void software_reset();
+..\application\software_reset_task.h(33): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\application\shoot_task.h(159): warning:  #381-D: extra ";" ignored
+      uint16_t shoot_last_key_v;;
+../Src/freertos.c(197): warning:  #144-D: a value of type "void (*)(void *)" cannot be used to initialize an entity of type "os_pthread"
+      osThreadDef(UI, ui_task, osPriorityNormal, 0, 512);
+../Src/freertos.c: 4 warnings, 0 errors
+compiling adc.c...
+compiling can.c...
+compiling crc.c...
+compiling dma.c...
+compiling i2c.c...
+compiling rng.c...
+compiling rtc.c...
+compiling spi.c...
+compiling tim.c...
+compiling usart.c...
+compiling usb_device.c...
+compiling usbd_conf.c...
+compiling usbd_desc.c...
+compiling usbd_cdc_if.c...
+compiling stm32f4xx_it.c...
+../Src/stm32f4xx_it.c(174): warning:  #223-D: function "xPortSysTickHandler" declared implicitly
+    xPortSysTickHandler();
+../Src/stm32f4xx_it.c: 1 warning, 0 errors
+compiling stm32f4xx_hal_msp.c...
+compiling system_stm32f4xx.c...
+compiling bsp_adc.c...
+compiling bsp_buzzer.c...
+compiling bsp_can.c...
+compiling bsp_crc32.c...
+compiling bsp_delay.c...
+compiling bsp_flash.c...
+compiling bsp_fric.c...
+compiling bsp_imu_pwm.c...
+compiling bsp_i2c.c...
+compiling bsp_laser.c...
+compiling bsp_led.c...
+compiling bsp_rc.c...
+compiling bsp_rng.c...
+compiling bsp_spi.c...
+compiling bsp_usart.c...
+compiling bsp_servo_pwm.c...
+compiling calibrate_task.c...
+..\application\gimbal_task.h(336): warning:  #1295-D: Deprecated declaration software_reset - give arg types
+  extern void software_reset();
+..\application\calibrate_task.c: 1 warning, 0 errors
+compiling CAN_receive.c...
+compiling chassis_behaviour.c...
+..\application\gimbal_task.h(336): warning:  #1295-D: Deprecated declaration software_reset - give arg types
   extern void software_reset();
 ..\application\chassis_behaviour.h(88): warning:  #47-D: incompatible redefinition of macro "SWING_KEY"  (declared at line 85 of "..\application\chassis_task.h")
   #define SWING_KEY ((chassis_move.chassis_RC->key.v  & KEY_PRESSED_OFFSET_C) && !(chassis_move.chassis_last_key_v & KEY_PRESSED_OFFSET_C))
 ..\application\chassis_behaviour.h(90): warning:  #47-D: incompatible redefinition of macro "TOP_KEY"  (declared at line 87 of "..\application\chassis_task.h")
   #define TOP_KEY ((chassis_move.chassis_RC->key.v  & KEY_PRESSED_OFFSET_F) && !(chassis_move.chassis_last_key_v & KEY_PRESSED_OFFSET_F))
+..\application\chassis_behaviour.c: 3 warnings, 0 errors
+compiling chassis_task.c...
+..\application\gimbal_task.h(336): warning:  #1295-D: Deprecated declaration software_reset - give arg types
+  extern void software_reset();
+..\application\chassis_behaviour.h(88): warning:  #47-D: incompatible redefinition of macro "SWING_KEY"  (declared at line 85 of "..\application\chassis_task.h")
+  #define SWING_KEY ((chassis_move.chassis_RC->key.v  & KEY_PRESSED_OFFSET_C) && !(chassis_move.chassis_last_key_v & KEY_PRESSED_OFFSET_C))
+..\application\chassis_behaviour.h(90): warning:  #47-D: incompatible redefinition of macro "TOP_KEY"  (declared at line 87 of "..\application\chassis_task.h")
+  #define TOP_KEY ((chassis_move.chassis_RC->key.v  & KEY_PRESSED_OFFSET_F) && !(chassis_move.chassis_last_key_v & KEY_PRESSED_OFFSET_F))
+..\application\shoot_task.h(159): warning:  #381-D: extra ";" ignored
+      uint16_t shoot_last_key_v;;
 ..\application\chassis_task.c(515): warning:  #1035-D: single-precision operand implicitly converted to double-precision
           chassis_move_control_loop->max_wheel_speed = 1.5 * MAX_WHEEL_SPEED;
-..\application\chassis_task.c: 4 warnings, 0 errors
-linking...
-Program Size: Code=114332 RO-data=14764 RW-data=1440 ZI-data=59272  
-FromELF: creating hex file...
-"standard_tpye_c\standard_tpye_c.axf" - 0 Error(s), 4 Warning(s).
+..\application\chassis_task.c: 5 warnings, 0 errors
+compiling detect_task.c...
+compiling gimbal_behaviour.c...
+..\application\gimbal_task.h(336): warning:  #1295-D: Deprecated declaration software_reset - give arg types
+  extern void software_reset();
+..\application\vision.h(142): warning:  #1295-D: Deprecated declaration vision_if_find_target - give arg types
+  bool_t vision_if_find_target();
+..\application\vision.h(146): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\application\shoot_task.h(159): warning:  #381-D: extra ";" ignored
+      uint16_t shoot_last_key_v;;
+..\application\gimbal_behaviour.c(240): warning:  #177-D: function "gimbal_auto_control"  was declared but never referenced
+  static void gimbal_auto_control(fp32 *yaw, fp32 *pitch, gimbal_control_t *gimbal_control_set);
+..\application\gimbal_behaviour.c: 5 warnings, 0 errors
+compiling gimbal_task.c...
+..\application\gimbal_task.h(336): warning:  #1295-D: Deprecated declaration software_reset - give arg types
+  extern void software_reset();
+..\application\shoot_task.h(159): warning:  #381-D: extra ";" ignored
+      uint16_t shoot_last_key_v;;
+..\application\vision.h(142): warning:  #1295-D: Deprecated declaration vision_if_find_target - give arg types
+  bool_t vision_if_find_target();
+..\application\vision.h(146): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\application\gimbal_task.c(1047): warning:  #1-D: last line of file ends without a newline
+  }
+..\application\gimbal_task.c(221): warning:  #177-D: variable "shoot_can_set_current"  was declared but never referenced
+  static int16_t yaw_can_set_current = 0, pitch_can_set_current = 0, shoot_can_set_current = 0;
+..\application\gimbal_task.c: 6 warnings, 0 errors
+compiling INS_task.c...
+..\application\INS_task.c(181): warning:  #223-D: function "gimbal_cmd_to_chassis_stop" declared implicitly
+      while(gimbal_cmd_to_chassis_stop())
+..\application\INS_task.c: 1 warning, 0 errors
+compiling oled_task.c...
+compiling referee_control.c...
+..\application\gimbal_task.h(336): warning:  #1295-D: Deprecated declaration software_reset - give arg types
+  extern void software_reset();
+..\application\shoot_task.h(159): warning:  #381-D: extra ";" ignored
+      uint16_t shoot_last_key_v;;
+..\application\referee_control.c(61): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  fp32 shoot_grigger_grade[6] = {0, 5.0f*GRIGGER_SPEED_TO_RADIO, 10.0f*GRIGGER_SPEED_TO_RADIO, 15.0f*GRIGGER_SPEED_TO_RADIO, 28.0f*GRIGGER_SPEED_TO_RADIO, 40.0f*GRIGGER_SPEED_TO_RADIO};
+..\application\referee_control.c(61): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  fp32 shoot_grigger_grade[6] = {0, 5.0f*GRIGGER_SPEED_TO_RADIO, 10.0f*GRIGGER_SPEED_TO_RADIO, 15.0f*GRIGGER_SPEED_TO_RADIO, 28.0f*GRIGGER_SPEED_TO_RADIO, 40.0f*GRIGGER_SPEED_TO_RADIO};
+..\application\referee_control.c(61): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  fp32 shoot_grigger_grade[6] = {0, 5.0f*GRIGGER_SPEED_TO_RADIO, 10.0f*GRIGGER_SPEED_TO_RADIO, 15.0f*GRIGGER_SPEED_TO_RADIO, 28.0f*GRIGGER_SPEED_TO_RADIO, 40.0f*GRIGGER_SPEED_TO_RADIO};
+..\application\referee_control.c(61): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  fp32 shoot_grigger_grade[6] = {0, 5.0f*GRIGGER_SPEED_TO_RADIO, 10.0f*GRIGGER_SPEED_TO_RADIO, 15.0f*GRIGGER_SPEED_TO_RADIO, 28.0f*GRIGGER_SPEED_TO_RADIO, 40.0f*GRIGGER_SPEED_TO_RADIO};
+..\application\referee_control.c(61): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  fp32 shoot_grigger_grade[6] = {0, 5.0f*GRIGGER_SPEED_TO_RADIO, 10.0f*GRIGGER_SPEED_TO_RADIO, 15.0f*GRIGGER_SPEED_TO_RADIO, 28.0f*GRIGGER_SPEED_TO_RADIO, 40.0f*GRIGGER_SPEED_TO_RADIO};
+..\application\referee_control.c(222): warning:  #1-D: last line of file ends without a newline
+  }
+..\application\referee_control.c: 8 warnings, 0 errors
+compiling referee.c...
+compiling referee_usart_task.c...
+compiling test_task.c...
+compiling usb_task.c...
+compiling voltage_task.c...
+compiling led_flow_task.c...
+compiling servo_task.c...
+..\application\gimbal_task.h(336): warning:  #1295-D: Deprecated declaration software_reset - give arg types
+  extern void software_reset();
+..\application\shoot_task.h(159): warning:  #381-D: extra ";" ignored
+      uint16_t shoot_last_key_v;;
+..\application\servo_task.c: 2 warnings, 0 errors
+compiling vision.c...
+..\application\vision.h(142): warning:  #1295-D: Deprecated declaration vision_if_find_target - give arg types
+  bool_t vision_if_find_target();
+..\application\vision.h(146): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\application\vision.c(44): warning:  #223-D: function "usart1_init" declared implicitly
+      usart1_init(Vision_Buffer[0], Vision_Buffer[1], VISION_BUFFER_LEN);
+..\application\vision.c(67): warning:  #223-D: function "memcpy" declared implicitly
+                memcpy( &VisionRecvData, ReadFormUart, VISION_LEN_PACKED);      
+..\application\vision.c(77): warning:  #223-D: function "xTaskGetTickCount" declared implicitly
+                Vision_Time_Test[NOW] = xTaskGetTickCount();
+..\application\vision.c(114): warning:  #223-D: function "memcpy" declared implicitly
+        memcpy(vision_send_pack, &VisionSendData, 4);
+..\application\vision.c(121): warning:  #223-D: function "memset" declared implicitly
+        memset(vision_send_pack, 0, 50);
+..\application\vision.c(101): warning:  #177-D: variable "i"  was declared but never referenced
+        int i;    //循环发送次�?
+..\application\vision.c(102): warning:  #177-D: variable "id1_17mm_speed_limit"  was declared but never referenced
+        uint16_t id1_17mm_speed_limit;
+..\application\vision.c(103): warning:  #177-D: variable "bullet_speed"  was declared but never referenced
+        uint16_t bullet_speed;
+..\application\vision.c(197): warning:  #223-D: function "memset" declared implicitly
+              memset(Vision_Buffer[0], 0, 200);    
+..\application\vision.c(209): warning:  #223-D: function "memset" declared implicitly
+                        memset(Vision_Buffer[1], 0, 200);    //对象   内容  长度
+..\application\vision.c(186): warning:  #550-D: variable "this_time_rx_len"  was set but never used
+          static uint16_t this_time_rx_len = 0;
+..\application\vision.c(216): warning:  #1-D: last line of file ends without a newline
+    
+..\application\vision.c: 14 warnings, 0 errors
+compiling RM_Cilent_UI.c...
+compiling ui_task.c...
+..\application\ui_task.c(16): warning:  #47-D: incompatible redefinition of macro "PI"  (declared at line 23 of "..\application\struct_typedef.h")
+  #define PI 3.1415926
+..\application\ui_task.c(42): warning:  #223-D: function "vTaskDelay" declared implicitly
+                vTaskDelay(1000);
+..\application\ui_task.c(73): warning:  #223-D: function "sin" declared implicitly
+                Circle_Draw(&G8,"007",UI_Graph_ADD,8,UI_Color_Green,3,960+(int)340*sin((angle)*2*PI/360.0),540+(int)340*cos((angle)*2*PI/360.0),50);
+..\application\ui_task.c(73): warning:  #223-D: function "cos" declared implicitly
+                Circle_Draw(&G8,"007",UI_Graph_ADD,8,UI_Color_Green,3,960+(int)340*sin((angle)*2*PI/360.0),540+(int)340*cos((angle)*2*PI/360.0),50);
+..\application\ui_task.c: 4 warnings, 0 errors
+compiling remote_control.c...
+compiling super_cap_task.c...
+..\application\super_cap_task.c(80): warning:  #223-D: function "vTaskDelay" declared implicitly
+        vTaskDelay(SUPER_CAP_TASK_INIT_TIME);
+..\application\super_cap_task.c(158): warning:  #111-D: statement is unreachable
+                vTaskDelay(SUPER_CONTROL_TIME);
+..\application\super_cap_task.c: 2 warnings, 0 errors
+compiling shoot_task.c...
+..\application\gimbal_task.h(336): warning:  #1295-D: Deprecated declaration software_reset - give arg types
+  extern void software_reset();
+..\application\shoot_task.h(159): warning:  #381-D: extra ";" ignored
+      uint16_t shoot_last_key_v;;
+..\application\shoot_task.c(380): warning:  #223-D: function "abs" declared implicitly
+      if(shoot_control.shoot_mode == SHOOT_READY_FRIC &&(abs(shoot_control.fric_motor[LEFT].fric_motor_measure->speed_rpm)>abs(shoot_control.fric_motor[LEFT].require_speed) || abs(shoot_control.fric_motor[RIGHT].fric_motor_measure->speed_rpm)>abs(shoot_control.fric_motor[RIGHT].require_speed)))
+..\application\shoot_task.c(527): warning:  #1-D: last line of file ends without a newline
+  }
+..\application\shoot_task.c: 4 warnings, 0 errors
+compiling OLED.c...
 
 <h2>Software Packages used:</h2>
 
@@ -57,13 +249,14 @@ Package Vendor: Keil
 
 <h2>Collection of Component include folders:</h2>
   .\RTE\_standard_robot
-  C:\Users\14062\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include
-  C:\Users\14062\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
+  C:\Users\apple\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include
+  C:\Users\apple\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
 
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE:5.5.0
-Build Time Elapsed:  00:00:01
+Project build/rebuild aborted.
+Build Time Elapsed:  00:01:06
 </pre>
 </body>
 </html>
